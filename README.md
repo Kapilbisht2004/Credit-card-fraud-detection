@@ -1,27 +1,50 @@
-💳 Fraud Detection System (Flask Web App)
-A machine learning-powered web application to detect fraudulent financial transactions in real-time.
+# 💳 Credit Card Fraud Detection System
 
-Key Features:
-Real-time Prediction: Input transaction details for instant fraud detection
+A machine learning-powered Flask web application to detect fraudulent transactions in real-time. This project combines a user-friendly interface with the power of a pre-trained model to provide quick and reliable fraud predictions.
 
-Batch Processing: Upload CSV files to analyze multiple transactions
+---
 
-Visual Results: Clear fraud/legit classification with visual indicators (✅/❌)
+## 🔍 Key Features
 
-Model Transparency: Dedicated page explaining the ML model
+- ✅ **Real-time Prediction** — Enter transaction details manually and detect fraud instantly.
+- 📁 **Batch Processing** — Upload a CSV file and analyze multiple transactions in one go.
+- 📊 **Visual Output** — See results clearly marked as ✅ Legit or ❌ Fraud.
+- 📚 **Model Transparency** — A dedicated section explains how the ML model works.
 
-Tech Stack:
-Backend: Python Flask
+---
 
-Machine Learning: Scikit-learn (pre-trained model)
+## 🛠️ Tech Stack
 
-Frontend: HTML/CSS with responsive design
+| Layer         | Tools/Technologies |
+|---------------|--------------------|
+| **Frontend**  | HTML, CSS          |
+| **Backend**   | Python, Flask      |
+| **ML Model**  | Scikit-learn       |
+| **Data Handling** | Pandas        |
 
-Data Handling: Pandas for CSV processing
+---
 
-Usage:
-Enter transaction details manually via form
+## 🚀 How to Run the Project
 
-Or upload a CSV file for bulk analysis
+1. **Clone the repository**  
+   ```bash
+   git clone https://github.com/Kapilbisht2004/Credit-Card-Fraud-Detection.git
+   cd Credit-Card-Fraud-Detection
+Install dependencies
 
-Get instant predictions with fraud count statistics
+bash
+Copy
+Edit
+pip install -r requirements.txt
+Ensure the following files are present in the project root
+
+fraud_model.pkl – Trained ML model file
+
+features.pkl – Feature transformer for input alignment
+
+Start the Flask app
+
+bash
+Copy
+Edit
+python app.py
