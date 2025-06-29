@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediction Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #212529;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #004085;
+            font-weight: 900;
+            margin-bottom: 40px;
+        }
+        .summary {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #004085;
+        }
+        .card {
+            background-color: #e9ecef;
+            padding: 20px 30px;
+            border-radius: 10px;
+            text-align: center;
+            width: 150px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .fraud {
+            background-color: #dc3545;
+            color: white;
+        }
+        .legit {
+            background-color: #28a745;
+            color: white;
+        }
+        canvas {
+            display: block;
+            margin: 0 auto 30px;
+            max-width: 400px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            color: #212529;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 12px 15px;
+            text-align: center;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+            font-weight: 700;
+        }
+        a.back-link {
+            display: inline-block;
+            margin-top: 40px;
+            color: #007bff;
+            font-weight: 700;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        a.back-link:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+        /* Input data left align container */
+        .input-data {
+            max-width: 600px;
+            margin-bottom: 30px;
+            text-align: left;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Prediction Result</h1>
+
+        {% if input_values %}
+        <div class="input-data">
+            <h3>Input Transaction Data</h3>
+            <ul>
+                {% for key, value in input_values.items() %}
+                    <li><strong>{{ key }}:</strong> {{ value }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if fraud_count is not none and legit_count is not none %}
+        <div class="summary">
+            <div class="card fraud">
+                <h3>Total Fraud</h3>
+                <p>{{ fraud_count }}</p>
+            </div>
+            <div class="card legit">
+                <h3>Total Legit</h3>
+                <p>{{ legit_count }}</p>
+            </div>
+        </div>
+
+        <canvas id="fraudChart"></canvas>
+        {% endif %}
+
+        {% if result_table %}
+            <div>
+                {{ result_table | safe }}
+            </div>
+        {% else %}
+            <h2 style="text-align:center; color:#dc3545;">{{ result_text }}</h2>
+        {% endif %}
+
+        <a href="{{ url_for('fraud_detection') }}" class="back-link">← Back to Fraud Detection</a>
+    </div>
+
+    <script>
+        {% if fraud_count is not none and legit_count is not none %}
+        const ctx = document.getElementById('fraudChart').getContext('2d');
+        const fraudChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Legit', 'Fraud'],
+                datasets: [{
+                    data: [{{ legit_count }}, {{ fraud_count }}],
+                    backgroundColor: ['#28a745', '#dc3545']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: '#212529',
+                            font: {
+                                size: 14
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        {% endif %}
+    </script>
+</body>
+</html>

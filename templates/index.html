@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Secure Bank - Fraud Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='bank_logo.png') }}" alt="Bank Logo" style="height: 60px;">
+        <h1>Secure Bank</h1>
+    </header>
+
+    <main>
+        <div class="welcome-text">
+            <h2>Welcome to Credit Card<br />Fraud Detection System</h2>
+            <p>
+                Protect your transactions with our advanced AI-powered fraud detection model.  
+                Easily upload your transaction data or enter details manually to check for fraudulent activities.
+            </p>
+            <div class="btn-group">
+                <a href="{{ url_for('fraud_detection') }}" class="btn" aria-label="Go to Prediction Page">Go to Prediction</a>
+            </div>
+        </div>
+
+        <div class="credit-card">
+        <img src="{{ url_for('static', filename='credit_card.png') }}" alt="Credit Card" />
+      </div>
+    </main>
+
+        <footer>
+        &copy; 2025 Secure Bank. All rights reserved.<br />
+        <small style="display:block; margin-top:8px; font-size:0.9rem; color:#aaa;">
+          Developed by Kapil Bisht
+        </small>
+    </footer>
+
+</body>
+</html>
